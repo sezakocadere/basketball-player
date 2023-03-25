@@ -1,0 +1,45 @@
+type Query {
+    getAllPlayers: [Player]
+}
+type Player {
+    id: ID!
+    name: String!
+    surname: String!
+    position: Position!
+    status: Status!
+    team: Team!
+}
+
+type Mutation {
+    createPlayer(player: PlayerRequest): Player
+    removePlayer(id: String): Player
+    createTeam(team: TeamRequest): Team
+}
+type Team {
+    id: ID!
+    name: String!
+
+}
+input TeamRequest {
+    name: String!
+
+}
+input PlayerRequest {
+    name: String!
+    surname: String!
+    position: Position!
+    basketTeamId: ID!
+}
+
+enum Position {
+    PG,
+    SG,
+    SF,
+    PF,
+    C
+}
+
+enum Status {
+    ACTIVE,
+    PASSIVE
+}
