@@ -7,6 +7,7 @@ import com.basketball.basketball.model.Team;
 import com.basketball.basketball.service.PlayerService;
 import com.basketball.basketball.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -22,8 +23,8 @@ public class PlayerController {
     private final TeamService teamService;
 
     @QueryMapping
-    public List<Player> getAllPlayers() {
-        return playerService.getAllPlayers();
+    public Page<Player> getAllPlayers(@Argument int page, @Argument int size) {
+        return playerService.getAllPlayers(page,size);
     }
 
     @MutationMapping

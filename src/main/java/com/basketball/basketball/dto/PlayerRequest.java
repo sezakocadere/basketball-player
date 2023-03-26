@@ -18,5 +18,5 @@ public class PlayerRequest {
     private String surname;
     @NotNull
     private Position position;
-    private Long basketTeamId;
+    private Long teamId;
 }

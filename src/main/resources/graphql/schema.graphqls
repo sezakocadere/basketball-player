@@ -1,5 +1,16 @@
 type Query {
-    getAllPlayers: [Player]
+    getAllPlayers(filter: FilterPage, page: Int, size: Int): Page
+}
+
+input FilterPage {
+    isIncome: Boolean
+
+}
+
+type Page {
+    content: [Player]
+    total: String!
+
 }
 type Player {
     id: ID!
@@ -28,7 +39,7 @@ input PlayerRequest {
     name: String!
     surname: String!
     position: Position!
-    basketTeamId: ID!
+    teamId: ID!
 }
 
 enum Position {

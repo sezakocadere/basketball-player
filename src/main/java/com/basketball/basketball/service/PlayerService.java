@@ -2,12 +2,13 @@ package com.basketball.basketball.service;
 
 import com.basketball.basketball.dto.PlayerRequest;
 import com.basketball.basketball.model.Player;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface PlayerService {
 
-    List<Player> getAllPlayers();
+    Page<Player> getAllPlayers(int page, int size);
 
     Player createPlayer(PlayerRequest player);
 
