@@ -5,17 +5,21 @@ import lombok.Data;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Entity
 @Data
-@Audited
 public class History {
     @Id
     @GeneratedValue
     private Long id;
     @Enumerated(EnumType.STRING)
     private Operation operationType;
+
+    @NotNull
     private OffsetDateTime createTime;
+
+    @NotNull
     private String changedBy;
 }

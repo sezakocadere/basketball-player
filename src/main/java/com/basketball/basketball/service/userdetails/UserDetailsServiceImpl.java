@@ -1,4 +1,4 @@
-package com.basketball.basketball.service.userDetails;
+package com.basketball.basketball.service.userdetails;
 
 import com.basketball.basketball.model.LoginUser;
 import com.basketball.basketball.repository.UserRepository;

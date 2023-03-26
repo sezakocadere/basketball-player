@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
+    private static final int MAX_TEAM_SIZE = 5;
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
     private final HistoryService historyService;
@@ -32,18 +33,29 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player createPlayer(PlayerRequest playerRequest) {
         Team team = getTeam(playerRequest.getTeamId());
+        checkTeamMaxCount(team);
+
+        Player player = preparePlayer(playerRequest, team);
+
+        playerRepository.save(player);
+        historyService.save(Operation.CREATE);
+        return player;
+    }
+
+    private void checkTeamMaxCount(Team team) {
         int playerNumberOfTeam = playerRepository.countByTeamId(team.getId());
-        if (playerNumberOfTeam > 4) {
+        if (playerNumberOfTeam > MAX_TEAM_SIZE - 1) {
             throw new TooManyPlayersException("A basketball team cannot have more than 5 members");
         }
+    }
+
+    private Player preparePlayer(PlayerRequest playerRequest, Team team) {
         Player player = new Player();
         player.setName(playerRequest.getName());
         player.setSurname(playerRequest.getSurname());
         player.setPosition(playerRequest.getPosition());
         player.setStatus(Status.ACTIVE);
         player.setTeam(team);
-        playerRepository.save(player);
-        historyService.save(Operation.CREATE);
         return player;
     }
 

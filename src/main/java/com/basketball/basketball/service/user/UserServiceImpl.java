@@ -10,8 +10,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public LoginUser createUser(UserRequest userRequest) {
         LoginUser user = new LoginUser();
         user.setUsername(userRequest.getUsername());
@@ -33,11 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(UserRequest userRequest) throws Exception {
+    public String login(UserRequest userRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
         } catch (BadCredentialsException ex) {
-            throw new Exception("Incorret username or password", ex);
+            throw new UsernameNotFoundException("Incorret username or password", ex);
         }
         UserDetails userDetails = new User(userRequest.getUsername(), userRequest.getPassword(), new ArrayList<>());
         return jwtUtil.generateToken(userDetails);

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UNIQUE_POSITION_AND_TEAM", columnNames = { "position", "team_id" }) })
 public class Player {
     @Id
     @GeneratedValue
