@@ -1,10 +1,29 @@
 type Query {
     getAllPlayers(filter: FilterPage, page: Int, size: Int): Page
+    login(userRequest: UserRequest!): String
+    #getHistory() : [History]
+
 }
+
+input History {
+    operationType:Operation!
+
+}
+
+enum Operation {
+    CREATE,
+    UPDATE,
+    DELETE
+}
+
+input UserRequest {
+    username: String!
+    password: String!
+}
+
 
 input FilterPage {
     isIncome: Boolean
-
 }
 
 type Page {
@@ -25,6 +44,13 @@ type Mutation {
     createPlayer(player: PlayerRequest): Player
     removePlayer(id: String): Player
     createTeam(team: TeamRequest): Team
+    createUser(user :UserRequest):LoginUser
+}
+
+type LoginUser {
+    id: ID!
+    username: String!
+    password: String!
 }
 type Team {
     id: ID!

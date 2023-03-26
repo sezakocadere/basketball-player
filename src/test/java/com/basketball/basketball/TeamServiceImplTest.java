@@ -3,8 +3,9 @@ package com.basketball.basketball;
 import com.basketball.basketball.dto.TeamRequest;
 import com.basketball.basketball.model.Team;
 import com.basketball.basketball.repository.TeamRepository;
-import com.basketball.basketball.service.TeamService;
-import com.basketball.basketball.service.TeamServiceImpl;
+import com.basketball.basketball.service.history.HistoryService;
+import com.basketball.basketball.service.team.TeamService;
+import com.basketball.basketball.service.team.TeamServiceImpl;
 import org.assertj.core.api.JUnitSoftAssertions;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,13 +19,15 @@ public class TeamServiceImplTest {
     @Rule
     public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
     @Mock
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
     @Mock
     private TeamService teamService;
+    @Mock
+    private HistoryService historyService;
 
     @Before
     public void setup() {
-        teamService = new TeamServiceImpl(teamRepository);
+        teamService = new TeamServiceImpl(teamRepository, historyService);
     }
 
     @Test

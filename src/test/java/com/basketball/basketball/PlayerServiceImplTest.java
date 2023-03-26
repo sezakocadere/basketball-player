@@ -9,8 +9,9 @@ import com.basketball.basketball.model.Player;
 import com.basketball.basketball.model.Team;
 import com.basketball.basketball.repository.PlayerRepository;
 import com.basketball.basketball.repository.TeamRepository;
-import com.basketball.basketball.service.PlayerService;
-import com.basketball.basketball.service.PlayerServiceImpl;
+import com.basketball.basketball.service.history.HistoryService;
+import com.basketball.basketball.service.player.PlayerService;
+import com.basketball.basketball.service.player.PlayerServiceImpl;
 import org.assertj.core.api.JUnitSoftAssertions;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,13 +41,13 @@ public class PlayerServiceImplTest {
     private PlayerRepository playerRepository;
     @Mock
     private TeamRepository teamRepository;
+    @Mock
+    private HistoryService historyService;
 
-    public PlayerServiceImplTest() {
-    }
 
     @Before
     public void setup() {
-        playerService = new PlayerServiceImpl(playerRepository, teamRepository);
+        playerService = new PlayerServiceImpl(playerRepository, teamRepository, historyService);
     }
 
     @Test

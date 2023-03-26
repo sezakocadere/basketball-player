@@ -1,6 +1,7 @@
-package com.basketball.basketball.service;
+package com.basketball.basketball.service.player;
 
 import com.basketball.basketball.dto.PlayerRequest;
+import com.basketball.basketball.enums.Operation;
 import com.basketball.basketball.enums.Status;
 import com.basketball.basketball.error.NotFoundObjectException;
 import com.basketball.basketball.error.TooManyPlayersException;
@@ -8,6 +9,7 @@ import com.basketball.basketball.model.Player;
 import com.basketball.basketball.model.Team;
 import com.basketball.basketball.repository.PlayerRepository;
 import com.basketball.basketball.repository.TeamRepository;
+import com.basketball.basketball.service.history.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
+    private final HistoryService historyService;
 
     @Override
     public Page<Player> getAllPlayers(int page, int size) {
@@ -40,6 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
         player.setStatus(Status.ACTIVE);
         player.setTeam(team);
         playerRepository.save(player);
+        historyService.save(Operation.CREATE);
         return player;
     }
 
@@ -57,5 +61,6 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = getPlayer(id);
         player.setStatus(Status.PASSIVE);
         playerRepository.save(player);
+        historyService.save(Operation.DELETE);
     }
 }

@@ -20,6 +20,7 @@ public class ResponseExceptionHandler extends DataFetcherExceptionResolverAdapte
         errorTypeMap.put(NotFoundObjectException.class, ErrorType.NOT_FOUND);
         errorTypeMap.put(TooManyPlayersException.class, ErrorType.INTERNAL_ERROR);
         errorTypeMap.put(ConstraintViolationException.class, ErrorType.INTERNAL_ERROR);
+        errorTypeMap.put(Exception.class, ErrorType.INTERNAL_ERROR);
     }
 
     @Override

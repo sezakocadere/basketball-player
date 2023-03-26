@@ -2,10 +2,15 @@ package com.basketball.basketball.controller;
 
 import com.basketball.basketball.dto.PlayerRequest;
 import com.basketball.basketball.dto.TeamRequest;
+import com.basketball.basketball.dto.UserRequest;
+import com.basketball.basketball.model.History;
+import com.basketball.basketball.model.LoginUser;
 import com.basketball.basketball.model.Player;
 import com.basketball.basketball.model.Team;
-import com.basketball.basketball.service.PlayerService;
-import com.basketball.basketball.service.TeamService;
+import com.basketball.basketball.service.history.HistoryService;
+import com.basketball.basketball.service.player.PlayerService;
+import com.basketball.basketball.service.team.TeamService;
+import com.basketball.basketball.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -21,10 +26,12 @@ import java.util.List;
 public class PlayerController {
     private final PlayerService playerService;
     private final TeamService teamService;
+    private final UserService userService;
+    private final HistoryService historyService;
 
     @QueryMapping
     public Page<Player> getAllPlayers(@Argument int page, @Argument int size) {
-        return playerService.getAllPlayers(page,size);
+        return playerService.getAllPlayers(page, size);
     }
 
     @MutationMapping
@@ -42,4 +49,18 @@ public class PlayerController {
         return teamService.createTeam(team);
     }
 
+    @MutationMapping
+    public LoginUser createUser(@Valid @Argument UserRequest user) {
+        return userService.createUser(user);
+    }
+
+    @QueryMapping
+    public String login(@Argument UserRequest userRequest) throws Exception {
+        return userService.login(userRequest);
+    }
+
+    @QueryMapping
+    public List<History> getHistory() {
+        return historyService.getHistory();
+    }
 }

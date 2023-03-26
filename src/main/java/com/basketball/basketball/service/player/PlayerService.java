@@ -1,4 +1,4 @@
-package com.basketball.basketball.service;
+package com.basketball.basketball.service.player;
 
 import com.basketball.basketball.dto.PlayerRequest;
 import com.basketball.basketball.model.Player;
