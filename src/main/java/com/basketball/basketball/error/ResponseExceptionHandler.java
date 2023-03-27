@@ -3,6 +3,7 @@ package com.basketball.basketball.error;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Component
@@ -20,6 +22,8 @@ public class ResponseExceptionHandler extends DataFetcherExceptionResolverAdapte
         errorTypeMap.put(NotFoundObjectException.class, ErrorType.NOT_FOUND);
         errorTypeMap.put(TooManyPlayersException.class, ErrorType.INTERNAL_ERROR);
         errorTypeMap.put(ConstraintViolationException.class, ErrorType.INTERNAL_ERROR);
+        errorTypeMap.put(NoSuchElementException.class, ErrorType.INTERNAL_ERROR);
+        errorTypeMap.put(DataIntegrityViolationException.class, ErrorType.INTERNAL_ERROR);
         errorTypeMap.put(Exception.class, ErrorType.INTERNAL_ERROR);
     }
 

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
         } catch (BadCredentialsException ex) {
-            throw new UsernameNotFoundException("Incorret username or password", ex);
+            throw new UsernameNotFoundException("Incorrect username or password", ex);
         }
         UserDetails userDetails = new User(userRequest.getUsername(), userRequest.getPassword(), new ArrayList<>());
         return jwtUtil.generateToken(userDetails);
