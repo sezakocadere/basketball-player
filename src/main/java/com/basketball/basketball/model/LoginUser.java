@@ -1,6 +1,7 @@
 package com.basketball.basketball.model;
 
 import lombok.Data;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
+@Audited
 public class LoginUser {
     @Id
     @GeneratedValue

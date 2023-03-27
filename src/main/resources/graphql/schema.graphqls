@@ -1,12 +1,13 @@
 type Query {
     getAllPlayers(filter: FilterPage, page: Int, size: Int): Page
     login(userRequest: UserRequest!): String
-    #getHistory() : [History]
+    getHistory: [History]
 
 }
 
-input History {
+type History {
     operationType:Operation!
+    changedBy:String!
 
 }
 

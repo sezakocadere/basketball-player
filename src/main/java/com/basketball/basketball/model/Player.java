@@ -5,6 +5,7 @@ import com.basketball.basketball.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Audited
 @Table(uniqueConstraints = { @UniqueConstraint(name = "UNIQUE_POSITION_AND_TEAM", columnNames = { "position", "team_id" }) })
 public class Player {
     @Id

@@ -26,7 +26,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Page<Player> getAllPlayers(int page, int size) {
-        return playerRepository.findAll(PageRequest.of(page, size));
+        return playerRepository.findAllByStatus(Status.ACTIVE, PageRequest.of(page, size));
     }
 
     @Transactional
@@ -34,12 +34,19 @@ public class PlayerServiceImpl implements PlayerService {
     public Player createPlayer(PlayerRequest playerRequest) {
         Team team = getTeam(playerRequest.getTeamId());
         checkTeamMaxCount(team);
-
+        checkTeamPosition(playerRequest);
         Player player = preparePlayer(playerRequest, team);
 
         playerRepository.save(player);
         historyService.save(Operation.CREATE);
         return player;
+    }
+
+    private void checkTeamPosition(PlayerRequest playerRequest) {
+        boolean isSamePositionOfTeam = playerRepository.existsByPositionAndTeamIdAndStatus(playerRequest.getPosition(), playerRequest.getTeamId(), Status.ACTIVE);
+        if (isSamePositionOfTeam) {
+            throw new TooManyPlayersException("Other player has same position in team");
+        }
     }
 
     private void checkTeamMaxCount(Team team) {

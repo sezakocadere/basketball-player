@@ -6,6 +6,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolationException;
@@ -20,6 +21,7 @@ public class ResponseExceptionHandler extends DataFetcherExceptionResolverAdapte
 
     public ResponseExceptionHandler() {
         errorTypeMap.put(NotFoundObjectException.class, ErrorType.NOT_FOUND);
+        errorTypeMap.put(UsernameNotFoundException.class, ErrorType.NOT_FOUND);
         errorTypeMap.put(TooManyPlayersException.class, ErrorType.INTERNAL_ERROR);
         errorTypeMap.put(ConstraintViolationException.class, ErrorType.INTERNAL_ERROR);
         errorTypeMap.put(NoSuchElementException.class, ErrorType.INTERNAL_ERROR);
