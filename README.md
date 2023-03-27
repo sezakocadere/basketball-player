@@ -26,11 +26,57 @@ If you have already generated and reload it.
 The project has been Dockerized and pushed to Docker Hub. You can access it through the following link: https://hub.docker.com/r/sezakocadere/basketball/tags
 
 ## Request Examples
+
+### Create User
+To obtain a token, we first need to create a user can executed by Anonymous users.
+```
+localhost:8080/graphql
+Request Body
+
+mutation {
+  createUser(user: {username: "seza", password:"123"}) {
+   id
+  }
+}
+
+Response Body
+
+{
+    "data": {
+        "createUser": {
+            "id": "1"
+        }
+    }
+}
+```
+
+### Login User (Authentication Step)
+This login query returns a bearer token and can executed by Anonymous users.
+```
+localhost:8080/graphql
+
+Request Body
+
+query {
+  login(userRequest: {
+    username: "seza",
+    password: "password"
+  })
+}
+
+Response Body
+{
+    "data": {
+        "login": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZXphIiwiZXhwIjoxNjc5ODg3Mjc3LCJpYXQiOjE2Nzk4NjkyNzd9.K7LMS30p56vjZSWWnUPtfIbm3eSikiBQD12d8ngT2wE"
+    }
+}
+```
+
+
 ### Create Team
 it can only be executed by authenticated users (is not Anonymous) 
 ```
-localhost:8080/graphql [POST]
-
+localhost:8080/graphql
 Request Body
 
 mutation {
@@ -51,24 +97,29 @@ Response Body
 }
 ```
 
-### Login User (Authentication Step)
-This login query returns a bearer token and can executed by Anonymous users.
+### Create Player
+it can only be executed by authenticated users (is not Anonymous) 
 ```
-localhost:8080/graphql [POST]
-
+localhost:8080/graphql
 Request Body
 
-query {
-  login(userRequest: {
-    username: "seza",
-    password: "password"
-  })
+mutation {
+  createPlayer(player: {name: "seza", surname:"kocadere", position:PF, teamId:2}){
+    id
+    name
+    surname
+  }
 }
 
 Response Body
+
 {
     "data": {
-        "login": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZXphIiwiZXhwIjoxNjc5ODg3Mjc3LCJpYXQiOjE2Nzk4NjkyNzd9.K7LMS30p56vjZSWWnUPtfIbm3eSikiBQD12d8ngT2wE"
+        "createPlayer": {
+            "id": "12",
+            "name": "seza",
+            "surname": "kocadere"
+        }
     }
 }
 ```
