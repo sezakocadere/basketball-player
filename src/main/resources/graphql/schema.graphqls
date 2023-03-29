@@ -1,5 +1,5 @@
 type Query {
-    getAllPlayers(filter: FilterPage, page: Int, size: Int): Page
+    getAllPlayers(filter: FilterPage, page: Int!, size: Int!): Page
     login(userRequest: UserRequest!): String
     getHistory: [History]
 

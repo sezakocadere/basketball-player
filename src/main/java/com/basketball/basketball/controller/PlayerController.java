@@ -44,8 +44,8 @@ public class PlayerController {
 
     @PreAuthorize("!isAnonymous()")
     @MutationMapping
-    public void removePlayer(@Argument Long id) {
-        playerService.removePlayer(id);
+    public Player removePlayer(@Argument Long id) {
+        return playerService.removePlayer(id);
     }
 
     @PreAuthorize("!isAnonymous()")

@@ -20,7 +20,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional
     @Override
-    public void save(Operation operationType) {
+    public void save(Operation operationType, Object object) {
         History history = new History();
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -30,6 +30,7 @@ public class HistoryServiceImpl implements HistoryService {
         }
         history.setOperationType(operationType);
         history.setCreateTime(OffsetDateTime.now());
+        history.setObject(object.toString());
         historyRepository.save(history);
     }
 

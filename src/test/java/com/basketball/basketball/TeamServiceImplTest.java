@@ -22,12 +22,10 @@ public class TeamServiceImplTest {
     private TeamRepository teamRepository;
     @Mock
     private TeamService teamService;
-    @Mock
-    private HistoryService historyService;
 
     @Before
     public void setup() {
-        teamService = new TeamServiceImpl(teamRepository, historyService);
+        teamService = new TeamServiceImpl(teamRepository);
     }
 
     @Test

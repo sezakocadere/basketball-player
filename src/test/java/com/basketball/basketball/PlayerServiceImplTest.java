@@ -41,13 +41,11 @@ public class PlayerServiceImplTest {
     private PlayerRepository playerRepository;
     @Mock
     private TeamRepository teamRepository;
-    @Mock
-    private HistoryService historyService;
 
 
     @Before
     public void setup() {
-        playerService = new PlayerServiceImpl(playerRepository, teamRepository, historyService);
+        playerService = new PlayerServiceImpl(playerRepository, teamRepository);
     }
 
     @Test
@@ -55,7 +53,7 @@ public class PlayerServiceImplTest {
         //Arrange
         Player player = composePlayer();
         Page<Player> players = new PageImpl<>(List.of(player));
-        when(playerRepository.findAll(PageRequest.of(0, 1))).thenReturn(players);
+        when(playerRepository.findAllByStatus( Status.ACTIVE, PageRequest.of(0, 1))).thenReturn(players);
 
         //Act
         Page<Player> allPlayers = playerService.getAllPlayers(0, 1);

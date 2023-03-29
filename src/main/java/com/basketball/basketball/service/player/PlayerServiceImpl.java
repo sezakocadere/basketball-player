@@ -1,7 +1,6 @@
 package com.basketball.basketball.service.player;
 
 import com.basketball.basketball.dto.PlayerRequest;
-import com.basketball.basketball.enums.Operation;
 import com.basketball.basketball.enums.Status;
 import com.basketball.basketball.error.NotFoundObjectException;
 import com.basketball.basketball.error.TooManyPlayersException;
@@ -9,7 +8,6 @@ import com.basketball.basketball.model.Player;
 import com.basketball.basketball.model.Team;
 import com.basketball.basketball.repository.PlayerRepository;
 import com.basketball.basketball.repository.TeamRepository;
-import com.basketball.basketball.service.history.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +20,6 @@ public class PlayerServiceImpl implements PlayerService {
     private static final int MAX_TEAM_SIZE = 5;
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
-    private final HistoryService historyService;
 
     @Override
     public Page<Player> getAllPlayers(int page, int size) {
@@ -36,9 +33,7 @@ public class PlayerServiceImpl implements PlayerService {
         checkTeamMaxCount(team);
         checkTeamPosition(playerRequest);
         Player player = preparePlayer(playerRequest, team);
-
         playerRepository.save(player);
-        historyService.save(Operation.CREATE);
         return player;
     }
 
@@ -76,10 +71,10 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Transactional
     @Override
-    public void removePlayer(Long id) {
+    public Player removePlayer(Long id) {
         Player player = getPlayer(id);
         player.setStatus(Status.PASSIVE);
         playerRepository.save(player);
-        historyService.save(Operation.DELETE);
+        return player;
     }
 }

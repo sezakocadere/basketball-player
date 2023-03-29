@@ -2,7 +2,6 @@ package com.basketball.basketball.model;
 
 import com.basketball.basketball.enums.Operation;
 import lombok.Data;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,4 +21,5 @@ public class History {
 
     @NotNull
     private String changedBy;
+    private String object;
 }
