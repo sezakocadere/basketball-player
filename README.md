@@ -131,7 +131,3 @@ username: sa
 
 password: 1234567
 ```
-
-### Note
-I am currently working on implementing the following changes;
-* Logging Aspect for History
