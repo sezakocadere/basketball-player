@@ -21,5 +21,5 @@ public class History {
 
     @NotNull
     private String changedBy;
-    private String object;
+    private String detail;
 }

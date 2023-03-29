@@ -30,7 +30,7 @@ public class HistoryServiceImpl implements HistoryService {
         }
         history.setOperationType(operationType);
         history.setCreateTime(OffsetDateTime.now());
-        history.setObject(object.toString());
+        history.setDetail(object.toString());
         historyRepository.save(history);
     }
 
