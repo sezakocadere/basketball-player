@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Audited
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UNIQUE_POSITION_AND_TEAM", columnNames = { "position", "team_id" }) })
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UNIQUE_POSITION_AND_TEAM", columnNames = {"position", "team_id"})})
 public class Player {
     @Id
     @GeneratedValue
